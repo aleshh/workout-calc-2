@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Session from './components/Session'
 
 const programName = (program, exercises) => {
   return program.exercises
@@ -12,8 +13,9 @@ const programName = (program, exercises) => {
 const App = ({ session, programs, exercises }) => {
   return (
     <div>
+      <Session />
       {session ? (
-        <div>Session</div>
+        <Session />
       ) : (
         <div>
           {programs.map(program => (
