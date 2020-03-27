@@ -3,7 +3,7 @@ import { func, oneOf, string } from 'prop-types'
 import { Button as MuiButton } from '@material-ui/core'
 
 const Button = ({ onClick, label, size }) => (
-  <MuiButton variant="contained" color="primary">
+  <MuiButton onClick={onClick} variant="contained" color="primary" size="large">
     {label}
   </MuiButton>
 )
