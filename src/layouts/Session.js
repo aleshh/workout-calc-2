@@ -3,14 +3,21 @@ import { connect } from 'react-redux'
 import { C } from '../reducers'
 
 const Session = ({ session, dispatch }) => {
-  if (!session) {
-    dispatch({
-      type: C.CREATE_NEW_SESSION,
-      payload: {}
-    })
+  const [value, setValue] = React.useState(100)
+  const exercise = session.exercises[session.currentExerciseIndex]
+
+  const updateValue = e => {
+    setValue(e.target.value)
   }
 
-  return <div>Session component</div>
+  return (
+    <div>
+      <h1>{exercise.name}</h1>
+      <form>
+        <input type="number" onChange={updateValue} />
+      </form>
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
