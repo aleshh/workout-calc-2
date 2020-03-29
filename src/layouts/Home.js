@@ -16,12 +16,12 @@ const createSession = (program, exercises, dispatch) => {
     exercises: program.exercises.map(exerciseId =>
       exercises.find(exercise => exercise.id === exerciseId)
     ),
-    currentExerciseIndex: 0
+    currentExerciseIndex: 0,
   }
 
   dispatch({
     type: C.CREATE_NEW_SESSION,
-    payload: session
+    payload: session,
   })
 }
 
@@ -44,7 +44,7 @@ const App = ({ session, programs, exercises, dispatch }) => {
 const mapStateToProps = state => ({
   session: state.session,
   programs: state.programs,
-  exercises: state.exercises
+  exercises: state.exercises,
 })
 
 export default connect(mapStateToProps)(App)

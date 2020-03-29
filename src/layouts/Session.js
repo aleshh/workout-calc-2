@@ -21,7 +21,7 @@ const Session = ({ session, dispatch }) => {
 }
 
 const mapStateToProps = state => ({
-  session: state.session
+  session: state.session,
 })
 
 export default connect(mapStateToProps)(Session)

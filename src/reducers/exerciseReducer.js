@@ -1,24 +1,24 @@
 const initialState = [
   {
     id: 0,
-    name: 'Squat'
+    name: 'Squat',
   },
   {
     id: 1,
-    name: 'Standing Press'
+    name: 'Standing Press',
   },
   {
     id: 2,
-    name: 'Deadlift'
+    name: 'Deadlift',
   },
   {
     id: 3,
-    name: 'Bench Press'
+    name: 'Bench Press',
   },
   {
     id: 4,
-    name: 'Power Clean'
-  }
+    name: 'Power Clean',
+  },
 ]
 
 export default (state = initialState, action) => {

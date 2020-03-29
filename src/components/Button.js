@@ -18,21 +18,21 @@ const useStyles = createUseStyles({
     cursor: 'pointer',
     transition: 'all .4s ease',
     '&:hover': {
-      backgroundColor: '#1765a3'
-    }
+      backgroundColor: '#1765a3',
+    },
   },
   topLeft: {
     position: 'absolute',
     top: 0,
     left: 0,
-    fill: 'white'
+    fill: 'white',
   },
   bottomRight: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    fill: 'white'
-  }
+    fill: 'white',
+  },
 })
 
 const Button = ({ onClick, label, size }) => {
@@ -56,11 +56,11 @@ const Button = ({ onClick, label, size }) => {
 Button.propTypes = {
   onClick: func.isRequired,
   label: string.isRequired,
-  size: oneOf(['small', 'medium', 'large'])
+  size: oneOf(['small', 'medium', 'large']),
 }
 
 Button.defaultProps = {
-  size: 'large'
+  size: 'large',
 }
 
 export default Button

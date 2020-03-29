@@ -7,21 +7,21 @@ const initialState = {
       id: 0,
       name: 'Squat',
       weight: 100,
-      nextWeight: undefined
+      nextWeight: undefined,
     },
     {
       id: 1,
       name: 'Standing Press',
       weight: 100,
-      nextWeight: undefined
+      nextWeight: undefined,
     },
     {
       id: 2,
       name: 'Deadlift',
       weight: 100,
-      nextWeight: undefined
-    }
-  ]
+      nextWeight: undefined,
+    },
+  ],
 }
 
 // const initialState = null
