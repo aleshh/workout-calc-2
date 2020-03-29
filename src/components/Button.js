@@ -8,13 +8,12 @@ const useStyles = createUseStyles({
   root: {
     display: 'block',
     position: 'relative',
-    width: 'calc(100% - 40px)',
+    width: '100%',
     backgroundColor: '#054477',
     fontSize: 20,
     color: 'white',
     border: 'none',
-    padding: '20px 20px',
-    margin: 20,
+    padding: 20,
     cursor: 'pointer',
     transition: 'all .4s ease',
     '&:hover': {
@@ -38,8 +37,8 @@ const useStyles = createUseStyles({
 const Button = ({ onClick, label, size }) => {
   const classes = useStyles()
 
-  return (
-    <button onClick={onClick} className={classes.root}>
+  const renderNippedCorners = () => (
+    <>
       <svg className={classes.topLeft} height={bevelSize} width={bevelSize}>
         <polygon points={`0,0 ${bevelSize},0 0,${bevelSize}`}></polygon>
       </svg>
@@ -48,6 +47,12 @@ const Button = ({ onClick, label, size }) => {
           points={`${bevelSize},${bevelSize} ${bevelSize},0 0,${bevelSize}`}
         ></polygon>
       </svg>
+    </>
+  )
+
+  return (
+    <button onClick={onClick} className={classes.root}>
+      {renderNippedCorners()}
       {label}
     </button>
   )
