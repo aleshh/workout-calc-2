@@ -14,6 +14,7 @@ const useStyles = createUseStyles({
     color: 'white',
     border: 'none',
     padding: 20,
+    textTransform: 'uppercase',
     cursor: 'pointer',
     transition: 'all .4s ease',
     '&:hover': {

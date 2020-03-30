@@ -1,9 +1,9 @@
 import React from 'react'
-import { number } from 'prop-types'
+import PropTypes from 'prop-types'
+import { createUseStyles } from 'react-jss'
 
 import PaddedContainer from './PaddedContainer'
 import Button from './Button'
-import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
   root: {
@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
   },
 })
 
-const NumberPicker = ({ initialValue }) => {
+const NumberPicker = ({ initialValue, increment }) => {
   const classes = useStyles()
 
   const [value, setValue] = React.useState(initialValue)
@@ -28,14 +28,18 @@ const NumberPicker = ({ initialValue }) => {
     setValue(e.target.value)
   }
 
-  const inc = e => {}
+  const inc = e => {
+    setValue(parseInt(value) + increment)
+  }
 
-  const dec = e => {}
+  const dec = e => {
+    setValue(value - increment)
+  }
 
   return (
     <div className={classes.root}>
       <PaddedContainer>
-        <Button label="-" onClick={inc} />
+        <Button label="-" onClick={dec} />
       </PaddedContainer>
       <PaddedContainer>
         <form>
@@ -47,18 +51,21 @@ const NumberPicker = ({ initialValue }) => {
         </form>
       </PaddedContainer>
       <PaddedContainer>
-        <Button label="+" onClick={dec} />
+        <Button label="+" onClick={inc} />
       </PaddedContainer>
     </div>
   )
 }
 
 NumberPicker.propTypes = {
-  initialValue: number,
+  initialValue: PropTypes.number,
+  increment: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
 }
 
 NumberPicker.defaultProps = {
-  initialValue: undefined,
+  initialValue: 45,
+  increment: 5,
 }
 
 export default NumberPicker

@@ -6,6 +6,8 @@ import programReducer from './programReducer'
 
 export const C = {
   CREATE_NEW_SESSION: 'CREATE_NEW_SESSION',
+  ABORT_SESSION: 'ABORT_SESSION',
+  SET_WEIGHT: 'SET_WEIGHT',
 }
 
 export default combineReducers({

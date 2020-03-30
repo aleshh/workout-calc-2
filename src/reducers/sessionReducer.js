@@ -6,19 +6,22 @@ const initialState = {
     {
       id: 0,
       name: 'Squat',
-      weight: 100,
+      weight: undefined,
+      previousWeight: 100,
       nextWeight: undefined,
     },
     {
       id: 1,
       name: 'Standing Press',
-      weight: 100,
+      weight: undefined,
+      previousWeight: 100,
       nextWeight: undefined,
     },
     {
       id: 2,
       name: 'Deadlift',
-      weight: 100,
+      weight: undefined,
+      previousWeight: 100,
       nextWeight: undefined,
     },
   ],
@@ -26,10 +29,23 @@ const initialState = {
 
 // const initialState = null
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
     case C.CREATE_NEW_SESSION:
-      return action.payload
+      return payload
+    case C.ABORT_SESSION:
+      return null
+    case C.SET_WEIGHT:
+      return {
+        currentExerciseIndex: state.currentExerciseIndex,
+        exercises: state.exercises.map(exercise => {
+          if (payload.id === exercise.id) {
+            exercise.weight = payload.weight
+            console.log('reducer setting weight', payload.weight)
+          }
+          return exercise
+        }),
+      }
     default:
       return state
   }
