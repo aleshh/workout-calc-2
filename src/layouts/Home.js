@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Button from '../components/Button'
+import PaddedContainer from '../components/PaddedContainer'
 import { C } from '../reducers'
 
 const programName = (program, exercises) => {
@@ -13,9 +14,11 @@ const programName = (program, exercises) => {
 
 const createSession = (program, exercises, dispatch) => {
   const session = {
-    exercises: program.exercises.map(exerciseId =>
-      exercises.find(exercise => exercise.id === exerciseId)
-    ),
+    exercises: program.exercises.map(exerciseId => {
+      const exercise = exercises.find(exercise => exercise.id === exerciseId)
+      exercise.previousWeight = 100
+      return exercise
+    }),
     currentExerciseIndex: 0,
   }
 
@@ -29,13 +32,14 @@ const App = ({ session, programs, exercises, dispatch }) => {
   return (
     <div>
       {programs.map(program => (
-        <Button
-          key={program.id}
-          label={programName(program, exercises)}
-          onClick={() => {
-            createSession(program, exercises, dispatch)
-          }}
-        />
+        <PaddedContainer key={program.id}>
+          <Button
+            label={programName(program, exercises)}
+            onClick={() => {
+              createSession(program, exercises, dispatch)
+            }}
+          />
+        </PaddedContainer>
       ))}
     </div>
   )
