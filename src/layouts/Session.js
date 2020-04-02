@@ -2,12 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
-import { C } from '../reducers'
+import { C, positions } from '../reducers'
 
 const Session = ({ session, dispatch }) => {
   const exercise = session.exercises[session.currentExerciseIndex]
-  const [weight, setWeight] = React.useState(exercise.previousWeight)
-  const [isExerciseDone, setIsExerciseDone] = React.useState(false)
+  const position = session.position || positions.SET_WORKOUT_WEIGHT
+
+  const [weight, setWeight] = React.useState(
+    exercise.weight || exercise.previousWeight
+  )
 
   const storeWeight = () => {
     dispatch({
@@ -17,22 +20,25 @@ const Session = ({ session, dispatch }) => {
         weight,
       },
     })
+
+    setPositiontoWorkout()
   }
 
-  const clearWeight = () => {
+  const setPosition = position => {
     dispatch({
-      type: C.SET_WEIGHT,
-      payload: {
-        id: exercise.id,
-        weight: undefined,
-      },
+      type: C.SET_POSITION,
+      payload: position,
     })
   }
+
+  const setPositionToWeight = () => setPosition(positions.SET_WORKOUT_WEIGHT)
+  const setPositiontoWorkout = () => setPosition(positions.SHOW_SETS)
+  const setPositionToNextWeight = () => setPosition(positions.SET_NEXT_WEIGHT)
 
   const renderInitialWeightSelection = () => (
     <>
       <NumberPicker
-        initialValue={exercise.previousWeight}
+        initialValue={exercise.weight || exercise.previousWeight}
         onChange={setWeight}
       />
       <ForwardBackControl
@@ -48,8 +54,8 @@ const Session = ({ session, dispatch }) => {
     <>
       <p>renderWorkoutTable: {exercise.weight}</p>
       <ForwardBackControl
-        onBack={clearWeight}
-        onForward={() => setIsExerciseDone(true)}
+        onBack={setPositionToWeight}
+        onForward={setPositionToNextWeight}
       />
     </>
   )
@@ -60,21 +66,24 @@ const Session = ({ session, dispatch }) => {
         initialValue={exercise.previousWeight}
         onChange={setWeight}
       />
-      <ForwardBackControl
-        onBack={setIsExerciseDone(false)}
-        onForward={() => {}}
-      />
+      <ForwardBackControl onBack={setPositiontoWorkout} onForward={() => {}} />
     </>
   )
 
   let content
 
-  if (!exercise.weight) {
-    content = renderInitialWeightSelection()
-  } else if (!isExerciseDone) {
-    content = renderWorkoutTable()
-  } else {
-    content = renderNextWeightSelection()
+  switch (position) {
+    case positions.SET_WORKOUT_WEIGHT:
+      content = renderInitialWeightSelection()
+      break
+    case positions.SHOW_SETS:
+      content = renderWorkoutTable()
+      break
+    case positions.SET_NEXT_WEIGHT:
+      content = renderNextWeightSelection()
+      break
+    default:
+      throw new Error('Invalid position')
   }
 
   return (

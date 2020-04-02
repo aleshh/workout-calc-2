@@ -2,6 +2,7 @@ import { C } from './index'
 
 const initialState = {
   currentExerciseIndex: 0,
+  position: 'set-workout-weight',
   exercises: [
     {
       id: 0,
@@ -41,10 +42,14 @@ export default (state = initialState, { type, payload }) => {
         exercises: state.exercises.map(exercise => {
           if (payload.id === exercise.id) {
             exercise.weight = payload.weight
-            console.log('reducer setting weight', payload.weight)
           }
           return exercise
         }),
+      }
+    case C.SET_POSITION:
+      return {
+        ...state,
+        position: payload,
       }
     default:
       return state

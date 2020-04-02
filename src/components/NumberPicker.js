@@ -19,21 +19,26 @@ const useStyles = createUseStyles({
   },
 })
 
-const NumberPicker = ({ initialValue, increment }) => {
+const NumberPicker = ({ initialValue, increment, onChange }) => {
   const classes = useStyles()
 
   const [value, setValue] = React.useState(initialValue)
 
-  const updateValue = e => {
-    setValue(e.target.value)
+  const updateValue = val => {
+    setValue(val)
+    onChange(val)
+  }
+
+  const handleChange = e => {
+    updateValue(e.target.value)
   }
 
   const inc = e => {
-    setValue(parseInt(value) + increment)
+    updateValue(parseInt(value) + increment)
   }
 
   const dec = e => {
-    setValue(value - increment)
+    updateValue(value - increment)
   }
 
   return (
@@ -46,7 +51,7 @@ const NumberPicker = ({ initialValue, increment }) => {
           <input
             className={classes.input}
             value={value}
-            onChange={updateValue}
+            onChange={handleChange}
           />
         </form>
       </PaddedContainer>

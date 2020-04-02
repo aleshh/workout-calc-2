@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Button from '../components/Button'
 import PaddedContainer from '../components/PaddedContainer'
-import { C } from '../reducers'
+import { C, positions } from '../reducers'
 
 const programName = (program, exercises) => {
   return program.exercises
@@ -20,6 +20,7 @@ const createSession = (program, exercises, dispatch) => {
       return exercise
     }),
     currentExerciseIndex: 0,
+    position: positions.SET_WORKOUT_WEIGHT,
   }
 
   dispatch({
