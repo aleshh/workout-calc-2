@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
-import { C, positions } from '../reducers'
+import { C, positions } from '../reducers/constants'
 
 const Session = ({ session, dispatch }) => {
   const exercise = session.exercises[session.currentExerciseIndex]

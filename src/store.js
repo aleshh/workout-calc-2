@@ -16,7 +16,7 @@ const store = createStore(
 store.subscribe(() => {
   localStorage[localStorageName] = JSON.stringify(store.getState())
   console.log('Store updated')
-  console.log(store.getState().session.exercises[0])
+  console.log(store.getState().session)
 })
 
 export default store

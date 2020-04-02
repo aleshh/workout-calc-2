@@ -1,8 +1,8 @@
-import { C } from './index'
+import { C, positions } from './constants'
 
 const initialState = {
   currentExerciseIndex: 0,
-  position: 'set-workout-weight',
+  position: positions.SET_WORKOUT_WEIGHT,
   exercises: [
     {
       id: 0,

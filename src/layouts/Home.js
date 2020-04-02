@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Button from '../components/Button'
 import PaddedContainer from '../components/PaddedContainer'
-import { C, positions } from '../reducers'
+import { C, positions } from '../reducers/constants'
 
 const programName = (program, exercises) => {
   return program.exercises
