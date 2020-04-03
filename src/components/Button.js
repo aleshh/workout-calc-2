@@ -52,7 +52,7 @@ const Button = ({ onClick, label, size }) => {
   )
 
   return (
-    <button onClick={onClick} className={classes.root}>
+    <button onClick={onClick} className={classes.root} data-testid="button">
       {renderNippedCorners()}
       {label}
     </button>
