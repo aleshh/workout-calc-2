@@ -19,26 +19,19 @@ const useStyles = createUseStyles({
   },
 })
 
-const NumberPicker = ({ initialValue, increment, onChange }) => {
+const NumberPicker = ({ value, increment, onChange }) => {
   const classes = useStyles()
 
-  const [value, setValue] = React.useState(initialValue)
-
-  const updateValue = val => {
-    setValue(val)
-    onChange(val)
-  }
-
   const handleChange = e => {
-    updateValue(e.target.value)
+    onChange(e.target.value)
   }
 
   const inc = e => {
-    updateValue(parseInt(value) + increment)
+    onChange(parseInt(value) + increment)
   }
 
   const dec = e => {
-    updateValue(value - increment)
+    onChange(value - increment)
   }
 
   return (
@@ -63,13 +56,13 @@ const NumberPicker = ({ initialValue, increment, onChange }) => {
 }
 
 NumberPicker.propTypes = {
-  initialValue: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   increment: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 }
 
 NumberPicker.defaultProps = {
-  initialValue: 45,
+  value: 45,
   increment: 5,
 }
 

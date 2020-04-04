@@ -13,20 +13,29 @@ const Session = ({ session, dispatch }) => {
   const isLastExercise =
     session.currentExerciseIndex === session.exercises.length - 1
 
-  const [currentWeight, setCurrentWeight] = useState(weight || previousWeight)
-  const [currentNextWeight, setCurrentNextWeight] = useState(
-    nextWeight || weight
-  )
+  const [inputWeight, setInputWeight] = useState()
+  const [inputNextWeight, setInputNextWeight] = useState()
+  const [doResetInput, setDoResetInput] = useState(true)
+
+  const resetInputWeight = () => {
+    setInputWeight(weight || previousWeight || 45)
+    setInputNextWeight(nextWeight || weight || previousWeight || 45)
+    setDoResetInput(false)
+  }
+
+  if (doResetInput) {
+    resetInputWeight()
+  }
 
   const storeWeight = () => {
     dispatch({
       type: C.SET_WEIGHT,
       payload: {
         id,
-        weight: currentWeight,
+        weight: inputWeight,
       },
     })
-
+    setInputNextWeight(inputWeight)
     setPositiontoWorkout()
   }
 
@@ -35,9 +44,11 @@ const Session = ({ session, dispatch }) => {
       type: C.SET_NEXT_WEIGHT,
       payload: {
         id,
-        nextWeight: currentNextWeight,
+        nextWeight: inputNextWeight,
       },
     })
+    resetInputWeight()
+
     if (isLastExercise) {
       dispatch({
         type: C.WORKOUT_COMPLETE,
@@ -64,10 +75,7 @@ const Session = ({ session, dispatch }) => {
   const renderInitialWeightSelection = () => (
     <>
       <h2>Enter Weight</h2>
-      <NumberPicker
-        initialValue={weight || previousWeight}
-        onChange={setCurrentWeight}
-      />
+      <NumberPicker value={inputWeight} onChange={setInputWeight} />
       {previousWeight && <p>Last Weight: {previousWeight}</p>}
       <ForwardBackControl
         onBack={() => {
@@ -92,10 +100,7 @@ const Session = ({ session, dispatch }) => {
   const renderNextWeightSelection = () => (
     <>
       <h2>Next Weight</h2>
-      <NumberPicker
-        initialValue={nextWeight || weight}
-        onChange={setCurrentNextWeight}
-      />
+      <NumberPicker value={inputNextWeight} onChange={setInputNextWeight} />
       <p>Just Completed: {weight}</p>
       <ForwardBackControl
         onBack={setPositiontoWorkout}
