@@ -1,6 +1,7 @@
 import React from 'react'
 import { func, oneOf, string } from 'prop-types'
 import { createUseStyles } from 'react-jss'
+import clsx from 'clsx'
 
 const bevelSize = 16
 
@@ -13,12 +14,19 @@ const useStyles = createUseStyles({
     fontSize: 20,
     color: 'white',
     border: 'none',
-    padding: 20,
+    padding: '25px 30px',
     textTransform: 'uppercase',
     cursor: 'pointer',
     transition: 'all .4s ease',
     '&:hover': {
       backgroundColor: '#1765a3',
+    },
+  },
+  secondary: {
+    color: 'black',
+    backgroundColor: '#ddd',
+    '&:hover': {
+      backgroundColor: '#ccc',
     },
   },
   topLeft: {
@@ -35,7 +43,7 @@ const useStyles = createUseStyles({
   },
 })
 
-const Button = ({ onClick, label, size }) => {
+const Button = ({ onClick, label, size, color }) => {
   const classes = useStyles()
 
   const renderNippedCorners = () => (
@@ -52,7 +60,13 @@ const Button = ({ onClick, label, size }) => {
   )
 
   return (
-    <button onClick={onClick} className={classes.root} data-testid="button">
+    <button
+      onClick={onClick}
+      className={clsx(classes.root, {
+        [classes.secondary]: color === 'secondary',
+      })}
+      data-testid="button"
+    >
       {renderNippedCorners()}
       {label}
     </button>
@@ -63,10 +77,12 @@ Button.propTypes = {
   onClick: func.isRequired,
   label: string.isRequired,
   size: oneOf(['small', 'medium', 'large']),
+  color: string,
 }
 
 Button.defaultProps = {
   size: 'large',
+  color: undefined,
 }
 
 export default Button

@@ -18,7 +18,9 @@ const ForwardBackControl = ({ onForward, onBack, forwardLabel, backLabel }) => {
   return (
     <div className={classes.root}>
       <PaddedContainer>
-        {onBack && <Button label={backLabel} onClick={onBack} />}
+        {onBack && (
+          <Button label={backLabel} color="secondary" onClick={onBack} />
+        )}
       </PaddedContainer>
 
       <PaddedContainer>

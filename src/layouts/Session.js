@@ -1,27 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
 const Session = ({ session, dispatch }) => {
-  const exercise = session.exercises[session.currentExerciseIndex]
+  const { id, name, weight, nextWeight, previousWeight } = session.exercises[
+    session.currentExerciseIndex
+  ]
   const position = session.position || positions.SET_WORKOUT_WEIGHT
 
-  const [weight, setWeight] = React.useState(
-    exercise.weight || exercise.previousWeight
+  const isLastExercise =
+    session.currentExerciseIndex === session.exercises.length - 1
+
+  const [currentWeight, setCurrentWeight] = useState(weight || previousWeight)
+  const [currentNextWeight, setCurrentNextWeight] = useState(
+    nextWeight || weight
   )
 
   const storeWeight = () => {
     dispatch({
       type: C.SET_WEIGHT,
       payload: {
-        id: exercise.id,
-        weight,
+        id,
+        weight: currentWeight,
       },
     })
 
     setPositiontoWorkout()
+  }
+
+  const storeNextWeight = () => {
+    dispatch({
+      type: C.SET_NEXT_WEIGHT,
+      payload: {
+        id,
+        nextWeight: currentNextWeight,
+      },
+    })
+    if (isLastExercise) {
+      dispatch({
+        type: C.WORKOUT_COMPLETE,
+      })
+    } else {
+      dispatch({
+        type: C.NEXT_EXERCISE,
+        payload: session.currentExerciseIndex + 1,
+      })
+    }
   }
 
   const setPosition = position => {
@@ -37,10 +63,12 @@ const Session = ({ session, dispatch }) => {
 
   const renderInitialWeightSelection = () => (
     <>
+      <h2>Enter Weight</h2>
       <NumberPicker
-        initialValue={exercise.weight || exercise.previousWeight}
-        onChange={setWeight}
+        initialValue={weight || previousWeight}
+        onChange={setCurrentWeight}
       />
+      {previousWeight && <p>Last Weight: {previousWeight}</p>}
       <ForwardBackControl
         onBack={() => {
           dispatch({ type: C.ABORT_SESSION })
@@ -52,7 +80,8 @@ const Session = ({ session, dispatch }) => {
 
   const renderWorkoutTable = () => (
     <>
-      <p>renderWorkoutTable: {exercise.weight}</p>
+      <h2>Workout Table</h2>
+      <p>Work weight, {weight}</p>
       <ForwardBackControl
         onBack={setPositionToWeight}
         onForward={setPositionToNextWeight}
@@ -62,11 +91,16 @@ const Session = ({ session, dispatch }) => {
 
   const renderNextWeightSelection = () => (
     <>
+      <h2>Next Weight</h2>
       <NumberPicker
-        initialValue={exercise.previousWeight}
-        onChange={setWeight}
+        initialValue={nextWeight || weight}
+        onChange={setCurrentNextWeight}
       />
-      <ForwardBackControl onBack={setPositiontoWorkout} onForward={() => {}} />
+      <p>Just Completed: {weight}</p>
+      <ForwardBackControl
+        onBack={setPositiontoWorkout}
+        onForward={storeNextWeight}
+      />
     </>
   )
 
@@ -87,10 +121,10 @@ const Session = ({ session, dispatch }) => {
   }
 
   return (
-    <div>
-      <h1>{exercise.name}</h1>
+    <>
+      <h1>{name}</h1>
       {content}
-    </div>
+    </>
   )
 }
 

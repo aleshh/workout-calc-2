@@ -7,6 +7,8 @@ import Home from './layouts/Home'
 const useStyles = createUseStyles({
   root: {
     padding: 20,
+    margin: '0 auto',
+    maxWidth: 500,
   },
 })
 

@@ -5,21 +5,21 @@ const initialState = {
   position: positions.SET_WORKOUT_WEIGHT,
   exercises: [
     {
-      id: 0,
+      id: 234,
       name: 'Squat',
       weight: undefined,
       previousWeight: 100,
       nextWeight: undefined,
     },
     {
-      id: 1,
+      id: 54324,
       name: 'Standing Press',
       weight: undefined,
       previousWeight: 100,
       nextWeight: undefined,
     },
     {
-      id: 2,
+      id: 23423,
       name: 'Deadlift',
       weight: undefined,
       previousWeight: 100,
@@ -46,10 +46,26 @@ export default (state = initialState, { type, payload }) => {
           return exercise
         }),
       }
+    case C.SET_NEXT_WEIGHT:
+      return {
+        currentExerciseIndex: state.currentExerciseIndex,
+        exercises: state.exercises.map(exercise => {
+          if (payload.id === exercise.id) {
+            exercise.nextWeight = payload.nextWeight
+          }
+          return exercise
+        }),
+      }
     case C.SET_POSITION:
       return {
         ...state,
         position: payload,
+      }
+    case C.NEXT_EXERCISE:
+      return {
+        ...state,
+        position: positions.SET_WORKOUT_WEIGHT,
+        currentExerciseIndex: payload,
       }
     default:
       return state
