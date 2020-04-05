@@ -10,6 +10,7 @@ const Session = ({ session, dispatch }) => {
   ]
   const position = session.position || positions.SET_WORKOUT_WEIGHT
 
+  const isFirstExercise = session.currentExerciseIndex === 0
   const isLastExercise =
     session.currentExerciseIndex === session.exercises.length - 1
 
@@ -46,6 +47,17 @@ const Session = ({ session, dispatch }) => {
     }
   }
 
+  const backFromExercise = () => {
+    if (isFirstExercise) {
+      dispatch({ type: C.ABORT_SESSION })
+    } else {
+      dispatch({
+        type: C.PREVIOUS_EXERCISE,
+        payload: session.currentExerciseIndex - 1,
+      })
+    }
+  }
+
   const setPosition = position => {
     dispatch({
       type: C.SET_POSITION,
@@ -63,9 +75,7 @@ const Session = ({ session, dispatch }) => {
       <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
       {previousWeight && <p>Last Weight: {previousWeight}</p>}
       <ForwardBackControl
-        onBack={() => {
-          dispatch({ type: C.ABORT_SESSION })
-        }}
+        onBack={backFromExercise}
         onForward={setPositiontoWorkout}
       />
     </>

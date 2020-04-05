@@ -67,6 +67,12 @@ export default (state = initialState, { type, payload }) => {
         position: positions.SET_WORKOUT_WEIGHT,
         currentExerciseIndex: payload,
       }
+    case C.PREVIOUS_EXERCISE:
+      return {
+        ...state,
+        position: positions.SET_NEXT_WEIGHT,
+        currentExerciseIndex: payload,
+      }
     default:
       return state
   }
