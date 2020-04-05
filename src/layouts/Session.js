@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
@@ -13,21 +13,7 @@ const Session = ({ session, dispatch }) => {
   const isLastExercise =
     session.currentExerciseIndex === session.exercises.length - 1
 
-  const [inputWeight, setInputWeight] = useState()
-  const [inputNextWeight, setInputNextWeight] = useState()
-  const [doResetInput, setDoResetInput] = useState(true)
-
-  const resetInputWeight = () => {
-    setInputWeight(weight || previousWeight || 45)
-    setInputNextWeight(nextWeight || weight || previousWeight || 45)
-    setDoResetInput(false)
-  }
-
-  if (doResetInput) {
-    resetInputWeight()
-  }
-
-  const storeWeight = () => {
+  const storeWeight = inputWeight => {
     dispatch({
       type: C.SET_WEIGHT,
       payload: {
@@ -35,20 +21,19 @@ const Session = ({ session, dispatch }) => {
         weight: inputWeight,
       },
     })
-    setInputNextWeight(inputWeight)
-    setPositiontoWorkout()
   }
 
-  const storeNextWeight = () => {
+  const storeNextWeight = inputWeight => {
     dispatch({
       type: C.SET_NEXT_WEIGHT,
       payload: {
         id,
-        nextWeight: inputNextWeight,
+        nextWeight: inputWeight,
       },
     })
-    resetInputWeight()
+  }
 
+  const finishExercise = () => {
     if (isLastExercise) {
       dispatch({
         type: C.WORKOUT_COMPLETE,
@@ -75,13 +60,13 @@ const Session = ({ session, dispatch }) => {
   const renderInitialWeightSelection = () => (
     <>
       <h2>Enter Weight</h2>
-      <NumberPicker value={inputWeight} onChange={setInputWeight} />
+      <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
       {previousWeight && <p>Last Weight: {previousWeight}</p>}
       <ForwardBackControl
         onBack={() => {
           dispatch({ type: C.ABORT_SESSION })
         }}
-        onForward={storeWeight}
+        onForward={setPositiontoWorkout}
       />
     </>
   )
@@ -100,11 +85,11 @@ const Session = ({ session, dispatch }) => {
   const renderNextWeightSelection = () => (
     <>
       <h2>Next Weight</h2>
-      <NumberPicker value={inputNextWeight} onChange={setInputNextWeight} />
+      <NumberPicker value={nextWeight || weight} onChange={storeNextWeight} />
       <p>Just Completed: {weight}</p>
       <ForwardBackControl
         onBack={setPositiontoWorkout}
-        onForward={storeNextWeight}
+        onForward={finishExercise}
       />
     </>
   )

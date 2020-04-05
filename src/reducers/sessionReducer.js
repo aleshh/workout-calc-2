@@ -38,7 +38,7 @@ export default (state = initialState, { type, payload }) => {
       return null
     case C.SET_WEIGHT:
       return {
-        currentExerciseIndex: state.currentExerciseIndex,
+        ...state,
         exercises: state.exercises.map(exercise => {
           if (payload.id === exercise.id) {
             exercise.weight = payload.weight
@@ -48,7 +48,7 @@ export default (state = initialState, { type, payload }) => {
       }
     case C.SET_NEXT_WEIGHT:
       return {
-        currentExerciseIndex: state.currentExerciseIndex,
+        ...state,
         exercises: state.exercises.map(exercise => {
           if (payload.id === exercise.id) {
             exercise.nextWeight = payload.nextWeight
