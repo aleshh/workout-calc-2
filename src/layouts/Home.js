@@ -16,7 +16,8 @@ const createSession = (program, exercises, dispatch) => {
   const session = {
     exercises: program.exercises.map(exerciseId => {
       const exercise = exercises.find(exercise => exercise.id === exerciseId)
-      exercise.previousWeight = 100
+      // exercise.previousWeight = 45
+      exercise.weight = 45
       return exercise
     }),
     currentExerciseIndex: 0,
@@ -29,7 +30,7 @@ const createSession = (program, exercises, dispatch) => {
   })
 }
 
-const App = ({ session, programs, exercises, dispatch }) => {
+const Home = ({ session, programs, exercises, dispatch }) => {
   return (
     <div>
       {programs.map(program => (
@@ -52,4 +53,4 @@ const mapStateToProps = state => ({
   exercises: state.exercises,
 })
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(Home)

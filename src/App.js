@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss'
 import { connect } from 'react-redux'
 import Session from './layouts/Session'
 import Home from './layouts/Home'
+import Done from './layouts/Done'
 
 const useStyles = createUseStyles({
   root: {
@@ -15,7 +16,17 @@ const useStyles = createUseStyles({
 const App = ({ session, programs, exercises }) => {
   const classes = useStyles()
 
-  return <div className={classes.root}>{session ? <Session /> : <Home />}</div>
+  const getComponent = () => {
+    if (session) {
+      if (session.complete) {
+        return <Done />
+      }
+      return <Session />
+    }
+    return <Home />
+  }
+
+  return <div className={classes.root}>{getComponent()}</div>
 }
 
 const mapStateToProps = state => ({
