@@ -4,7 +4,7 @@ import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
-const Session = ({ session, dispatch }) => {
+const Session = ({ session, exercise, dispatch }) => {
   const { id, name, weight, nextWeight, previousWeight } = session.exercises[
     session.currentExerciseIndex
   ]
@@ -13,6 +13,14 @@ const Session = ({ session, dispatch }) => {
   const isFirstExercise = session.currentExerciseIndex === 0
   const isLastExercise =
     session.currentExerciseIndex === session.exercises.length - 1
+
+  const calculateWeight = (weight, multiplier) => {
+    let result = weight * multiplier
+    result /= 5
+    result = Math.floor(result)
+    result *= 5
+    return result < 45 ? 45 : result
+  }
 
   const storeWeight = inputWeight => {
     dispatch({
@@ -85,6 +93,24 @@ const Session = ({ session, dispatch }) => {
     <>
       <h2>Workout Table</h2>
       <p>Work weight, {weight}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>sets</th>
+            <th>weight</th>
+            <th>reps</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exercise.sets.map((row, i) => (
+            <tr key={i}>
+              <td>{row.sets}</td>
+              <td>{calculateWeight(weight, row.multiplier)}</td>
+              <td>{row.reps}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <ForwardBackControl
         onBack={setPositionToWeight}
         onForward={setPositionToNextWeight}
@@ -130,6 +156,11 @@ const Session = ({ session, dispatch }) => {
 
 const mapStateToProps = state => ({
   session: state.session,
+  exercise: state.exercises.find(
+    exercise =>
+      exercise.name ===
+      state.session.exercises[state.session.currentExerciseIndex].name
+  ),
 })
 
 export default connect(mapStateToProps)(Session)
