@@ -1,21 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Button from '../components/Button'
-import PaddedContainer from '../components/PaddedContainer'
+import ContentWrapper from '../layouts/ContentWrapper'
+import Header from '../layouts/Header'
 import { C, positions } from '../reducers/constants'
 
 const programName = (program, exercises) => {
   return program.exercises
     .map(
-      exerciseId => exercises.find(exercise => exercise.id === exerciseId).name
+      (exerciseId) =>
+        exercises.find((exercise) => exercise.id === exerciseId).name
     )
     .join(', ')
 }
 
 const createSession = (program, exercises, dispatch) => {
   const session = {
-    exercises: program.exercises.map(exerciseId => {
-      const exercise = exercises.find(exercise => exercise.id === exerciseId)
+    exercises: program.exercises.map((exerciseId) => {
+      const exercise = exercises.find((exercise) => exercise.id === exerciseId)
       // exercise.previousWeight = 45
       exercise.weight = 45
       return exercise
@@ -32,22 +34,24 @@ const createSession = (program, exercises, dispatch) => {
 
 const Home = ({ session, programs, exercises, dispatch }) => {
   return (
-    <div>
-      {programs.map(program => (
-        <PaddedContainer key={program.id}>
+    <>
+      <Header title="WorkoutCalc" />
+      <ContentWrapper>
+        {programs.map((program) => (
           <Button
             label={programName(program, exercises)}
             onClick={() => {
               createSession(program, exercises, dispatch)
             }}
+            wide
           />
-        </PaddedContainer>
-      ))}
-    </div>
+        ))}
+      </ContentWrapper>
+    </>
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
   programs: state.programs,
   exercises: state.exercises,

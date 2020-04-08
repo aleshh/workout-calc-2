@@ -1,3 +1,4 @@
+/* prettier-ignore */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -28,4 +29,190 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+body,
+textarea,
+input {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.4em;
+  color: #61217f;
+  background-color: #fff;
+}
+
+strong,
+b,
+button,
+h1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color: #61217f;
+}
+
+form {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+input {
+  /*border: none;*/
+  text-align: right;
+  font-size: 1.2em;
+  width: 3em;
+  color: #61217f;
+  border: 3px solid #61217f;
+  position: relative;
+  top: 5px;
+}
+input:focus {
+  outline: none;
+}
+
+/* Table */
+
+.doneWorkout tr:first-child {
+  font-size: 0.7em;
+}
+.doneWorkout td:nth-child(1) {
+  text-align: left;
+}
+
+input,
+label {
+  font-size: 1.8em;
+}
+.note {
+  font-size: 0.8em;
+}
+table {
+  font-size: 1.4em;
+}
+
+/* Toolbar buttons */
+
+.toolbar {
+  background-color: transparent;
+  color: #61217f;
+  font-size: 0.7em;
+  margin: 15px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.left-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.right-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Slide-out panels */
+
+.slider {
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  width: 500px;
+  max-width: 90%;
+  height: 100%;
+  overflow: auto;
+  z-index: 2;
+}
+
+.slider p {
+  font-size: 0.8em;
+  padding: 20px 30px 0 30px;
+}
+
+.slider ul {
+  font-size: 0.8em;
+  padding: 0 30px;
+}
+
+.slider ul > li {
+  margin-left: 20px;
+}
+
+.slider p:first {
+  margin-top: 50px;
+}
+
+.pastWorkouts {
+  height: calc(100% - 120px);
+  overflow: auto;
+}
+
+.account h1 {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.help {
+  right: 0;
+  border-left: 3px solid #61217f;
+}
+
+.account {
+  left: 0;
+  border-right: 3px solid #61217f;
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 1em;
+  }
+
+  #wrapper {
+    margin-top: 25px;
+  }
+
+  input {
+    width: 2.5em;
+  }
+
+  .button {
+    padding: 14px 23px;
+  }
+
+  tr:first-child > td:nth-child(2) {
+    font-size: 1.1em;
+  }
+
+  tr:first-child > td {
+    padding: 0 6px;
+  }
+
+  #displayWorkout tr {
+    height: 2.6em;
+  }
+
+  #selectWorkout,
+  #workout {
+    margin-top: 10px;
+  }
+
+  header {
+    height: 52px;
+  }
+
+  .reset-button,
+  .switch-units-button {
+    padding: 8px 10px;
+    margin-left: 15px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  #pastWorkouts {
+    height: calc(100% - 160px);
+  }
 }

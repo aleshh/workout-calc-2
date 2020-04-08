@@ -1,10 +1,51 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { createUseStyles } from 'react-jss'
+import ContentWrapper from '../layouts/ContentWrapper'
+import Header from '../layouts/Header'
 import NumberPicker from '../components/NumberPicker'
 import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
+const useStyles = createUseStyles({
+  table: {
+    display: 'inline-block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderCollapse: 'collapse',
+    '& td': {
+      padding: '0 20px',
+      verticalAlign: 'middle',
+    },
+    '& td:nth-child(2)': {
+      fontFamily: "'Montserrat', sans-serif",
+      fontSize: '1.6em',
+      backgroundColor: '#ff0',
+    },
+    '& tr': {
+      backgroundColor: '#ddd',
+    },
+    '& tr:nth-child(odd)': {
+      backgroundColor: '#fff',
+      padding: '0',
+    },
+    '& tr:nth-child(even) > td:nth-child(2)': {
+      backgroundColor: '#dd0',
+    },
+    '& tr:first-child': {
+      backgroundColor: '#444',
+      color: '#fff',
+      textTransform: 'uppercase',
+    },
+    '& tr:first-child > td:nth-child(2)': {
+      backgroundColor: '#330',
+      color: '#ff0',
+    },
+  },
+})
+
 const Session = ({ session, exercise, dispatch }) => {
+  const classes = useStyles()
   const { id, name, weight, nextWeight, previousWeight } = session.exercises[
     session.currentExerciseIndex
   ]
@@ -22,7 +63,7 @@ const Session = ({ session, exercise, dispatch }) => {
     return result < 45 ? 45 : result
   }
 
-  const storeWeight = inputWeight => {
+  const storeWeight = (inputWeight) => {
     dispatch({
       type: C.SET_WEIGHT,
       payload: {
@@ -32,7 +73,7 @@ const Session = ({ session, exercise, dispatch }) => {
     })
   }
 
-  const storeNextWeight = inputWeight => {
+  const storeNextWeight = (inputWeight) => {
     dispatch({
       type: C.SET_NEXT_WEIGHT,
       payload: {
@@ -66,7 +107,7 @@ const Session = ({ session, exercise, dispatch }) => {
     }
   }
 
-  const setPosition = position => {
+  const setPosition = (position) => {
     dispatch({
       type: C.SET_POSITION,
       payload: position,
@@ -93,23 +134,19 @@ const Session = ({ session, exercise, dispatch }) => {
     <>
       <h2>Workout Table</h2>
       <p>Work weight, {weight}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>sets</th>
-            <th>weight</th>
-            <th>reps</th>
+      <table className={classes.table}>
+        <tr>
+          <td>sets</td>
+          <td>weight</td>
+          <td>reps</td>
+        </tr>
+        {exercise.sets.map((row, i) => (
+          <tr key={i}>
+            <td>{row.sets}</td>
+            <td>{calculateWeight(weight, row.multiplier)}</td>
+            <td>{row.reps}</td>
           </tr>
-        </thead>
-        <tbody>
-          {exercise.sets.map((row, i) => (
-            <tr key={i}>
-              <td>{row.sets}</td>
-              <td>{calculateWeight(weight, row.multiplier)}</td>
-              <td>{row.reps}</td>
-            </tr>
-          ))}
-        </tbody>
+        ))}
       </table>
       <ForwardBackControl
         onBack={setPositionToWeight}
@@ -148,16 +185,16 @@ const Session = ({ session, exercise, dispatch }) => {
 
   return (
     <>
-      <h1>{name}</h1>
-      {content}
+      <Header title={name} />
+      <ContentWrapper>{content}</ContentWrapper>
     </>
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
   exercise: state.exercises.find(
-    exercise =>
+    (exercise) =>
       exercise.name ===
       state.session.exercises[state.session.currentExerciseIndex].name
   ),

@@ -7,9 +7,9 @@ import Done from './layouts/Done'
 
 const useStyles = createUseStyles({
   root: {
-    padding: 20,
-    margin: '0 auto',
-    maxWidth: 500,
+    // padding: 20,
+    // margin: '0 auto',
+    // maxWidth: 500,
   },
 })
 
@@ -29,7 +29,7 @@ const App = ({ session, programs, exercises }) => {
   return <div className={classes.root}>{getComponent()}</div>
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
   programs: state.programs,
   exercises: state.exercises,

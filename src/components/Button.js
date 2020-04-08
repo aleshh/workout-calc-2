@@ -1,73 +1,55 @@
 import React from 'react'
-import { func, oneOf, string } from 'prop-types'
-import { createUseStyles } from 'react-jss'
+import { func, string, bool } from 'prop-types'
 import clsx from 'clsx'
-
-const bevelSize = 16
+import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
-  root: {
-    display: 'block',
-    position: 'relative',
-    width: '100%',
-    backgroundColor: '#054477',
-    fontSize: 20,
-    color: 'white',
-    border: 'none',
-    padding: '25px 30px',
+  button: {
+    textAlign: 'center',
     textTransform: 'uppercase',
+    backgroundColor: '#61217f',
+    color: '#fff',
+    fontSize: '1em',
+    border: '3px solid #61217f',
+    borderRadius: 10,
+    padding: '20px 30px',
+    margin: '20px 0',
     cursor: 'pointer',
-    transition: 'all .4s ease',
-    '&:hover': {
-      backgroundColor: '#1765a3',
-    },
+    fontWeight: 'bold',
+    // prevents text selection when quick-tapping buttons on ios
+    WebkitTouchCallout: 'none',
+    WebkitUserSelect: 'none',
+  },
+  wide: {
+    boxSizing: 'border-box',
+    display: 'block',
+    width: '100%',
   },
   secondary: {
-    color: 'black',
-    backgroundColor: '#ddd',
-    '&:hover': {
-      backgroundColor: '#ccc',
-    },
+    backgroundColor: '#fff',
+    color: '#61217f',
+    border: '3px solid #61217f',
   },
-  topLeft: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    fill: 'white',
-  },
-  bottomRight: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    fill: 'white',
+  small: {
+    fontSize: '0.6em',
+    padding: '5px 10px',
+    marginLeft: 30,
+    borderRadius: 5,
   },
 })
 
-const Button = ({ onClick, label, size, color }) => {
+const Button = ({ onClick, label, wide, secondary }) => {
   const classes = useStyles()
-
-  const renderNippedCorners = () => (
-    <>
-      <svg className={classes.topLeft} height={bevelSize} width={bevelSize}>
-        <polygon points={`0,0 ${bevelSize},0 0,${bevelSize}`}></polygon>
-      </svg>
-      <svg className={classes.bottomRight} height={bevelSize} width={bevelSize}>
-        <polygon
-          points={`${bevelSize},${bevelSize} ${bevelSize},0 0,${bevelSize}`}
-        ></polygon>
-      </svg>
-    </>
-  )
 
   return (
     <button
       onClick={onClick}
-      className={clsx(classes.root, {
-        [classes.secondary]: color === 'secondary',
+      className={clsx(classes.button, {
+        [classes.wide]: wide,
+        [classes.secondary]: secondary,
       })}
       data-testid="button"
     >
-      {renderNippedCorners()}
       {label}
     </button>
   )
@@ -76,13 +58,13 @@ const Button = ({ onClick, label, size, color }) => {
 Button.propTypes = {
   onClick: func.isRequired,
   label: string.isRequired,
-  size: oneOf(['small', 'medium', 'large']),
-  color: string,
+  wide: bool,
+  secondary: bool,
 }
 
 Button.defaultProps = {
-  size: 'large',
-  color: undefined,
+  wide: false,
+  secondary: false,
 }
 
 export default Button

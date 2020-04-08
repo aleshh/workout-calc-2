@@ -5,7 +5,7 @@ import PaddedContainer from '../components/PaddedContainer'
 
 const Done = ({ session, programs, exercises, dispatch }) => {
   return (
-    <div>
+    <div className="wrapper">
       <h1>Done!</h1>
       <PaddedContainer>
         <Button label="Store workout" onClick={() => {}} />
