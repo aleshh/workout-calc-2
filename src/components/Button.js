@@ -20,6 +20,9 @@ const useStyles = createUseStyles({
     WebkitTouchCallout: 'none',
     WebkitUserSelect: 'none',
   },
+  navigation: {
+    minWidth: 160,
+  },
   wide: {
     boxSizing: 'border-box',
     display: 'block',
@@ -38,7 +41,7 @@ const useStyles = createUseStyles({
   },
 })
 
-const Button = ({ onClick, label, wide, secondary }) => {
+const Button = ({ onClick, label, wide, secondary, navigation }) => {
   const classes = useStyles()
 
   return (
@@ -47,6 +50,7 @@ const Button = ({ onClick, label, wide, secondary }) => {
       className={clsx(classes.button, {
         [classes.wide]: wide,
         [classes.secondary]: secondary,
+        [classes.navigation]: navigation,
       })}
       data-testid="button"
     >
@@ -60,11 +64,13 @@ Button.propTypes = {
   label: string.isRequired,
   wide: bool,
   secondary: bool,
+  navigation: bool,
 }
 
 Button.defaultProps = {
   wide: false,
   secondary: false,
+  navigation: false,
 }
 
 export default Button

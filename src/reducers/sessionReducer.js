@@ -1,6 +1,34 @@
 import { C, positions } from './constants'
 
-const initialState = null
+const initialState = {
+  currentExerciseIndex: 0,
+  position: positions.SET_WORKOUT_WEIGHT,
+  exercises: [
+    {
+      id: 234,
+      name: 'Squat',
+      weight: undefined,
+      previousWeight: 100,
+      nextWeight: undefined,
+    },
+    {
+      id: 54324,
+      name: 'Standing Press',
+      weight: undefined,
+      previousWeight: 100,
+      nextWeight: undefined,
+    },
+    {
+      id: 23423,
+      name: 'Deadlift',
+      weight: undefined,
+      previousWeight: 100,
+      nextWeight: undefined,
+    },
+  ],
+}
+
+// const initialState = null
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -11,7 +39,7 @@ export default (state = initialState, { type, payload }) => {
     case C.SET_WEIGHT:
       return {
         ...state,
-        exercises: state.exercises.map(exercise => {
+        exercises: state.exercises.map((exercise) => {
           if (payload.id === exercise.id) {
             exercise.weight = payload.weight
           }
@@ -21,7 +49,7 @@ export default (state = initialState, { type, payload }) => {
     case C.SET_NEXT_WEIGHT:
       return {
         ...state,
-        exercises: state.exercises.map(exercise => {
+        exercises: state.exercises.map((exercise) => {
           if (payload.id === exercise.id) {
             exercise.nextWeight = payload.nextWeight
           }

@@ -5,26 +5,27 @@ import { createUseStyles } from 'react-jss'
 import PaddedContainer from './PaddedContainer'
 import Button from './Button'
 
-const useStyles = createUseStyles({
-  root: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, auto)',
-  },
-})
+const useStyles = createUseStyles({})
 
 const ForwardBackControl = ({ onForward, onBack, forwardLabel, backLabel }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      <PaddedContainer>
+      <PaddedContainer inline>
         {onBack && (
-          <Button label={backLabel} color="secondary" onClick={onBack} />
+          <Button
+            label={backLabel}
+            color="secondary"
+            onClick={onBack}
+            navigation
+            secondary
+          />
         )}
       </PaddedContainer>
 
-      <PaddedContainer>
-        <Button label={forwardLabel} onClick={onForward} />
+      <PaddedContainer inline>
+        <Button label={forwardLabel} onClick={onForward} navigation />
       </PaddedContainer>
     </div>
   )

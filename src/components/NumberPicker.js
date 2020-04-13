@@ -6,49 +6,51 @@ import PaddedContainer from './PaddedContainer'
 import Button from './Button'
 
 const useStyles = createUseStyles({
-  root: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, auto)',
-  },
+  root: {},
   input: {
-    width: '100%',
-    fontSize: 20,
+    display: 'inline-block',
+    fontSize: 30,
     textAlign: 'center',
-    padding: 20,
-    border: '2px solid black',
+    padding: '13px',
+    border: '3px solid #61217f',
+    borderRadius: 10,
+    position: 'relative',
+    top: 1,
+    width: 100,
   },
 })
 
 const NumberPicker = ({ value, increment, onChange }) => {
   const classes = useStyles()
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     onChange(e.target.value)
   }
 
-  const inc = e => {
+  const inc = (e) => {
     onChange(parseInt(value) + increment)
   }
 
-  const dec = e => {
+  const dec = (e) => {
     onChange(value - increment)
   }
 
   return (
     <div className={classes.root}>
-      <PaddedContainer>
+      <PaddedContainer inline>
         <Button label="-" onClick={dec} />
       </PaddedContainer>
-      <PaddedContainer>
+      <PaddedContainer inline>
         <form>
           <input
             className={classes.input}
             value={value}
             onChange={handleChange}
           />
+          &nbsp;lbs.
         </form>
       </PaddedContainer>
-      <PaddedContainer>
+      <PaddedContainer inline>
         <Button label="+" onClick={inc} />
       </PaddedContainer>
     </div>
