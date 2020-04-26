@@ -21,21 +21,23 @@ const useStyles = createUseStyles({
     '& tr': {
       backgroundColor: '#ddd',
     },
-    '& tr:nth-child(odd)': {
+    '& tr:nth-child(even)': {
       backgroundColor: '#fff',
       padding: '0',
     },
-    '& tr:nth-child(even) > td:nth-child(2)': {
+    '& tr:nth-child(odd) > td:nth-child(2)': {
       backgroundColor: '#dd0',
     },
-    '& thead > tr > td': {
-      backgroundColor: '#444',
-      color: '#fff',
-      textTransform: 'uppercase',
-    },
-    '& thead > tr > td:nth-child(2)': {
-      backgroundColor: '#330',
-      color: '#ff0',
+    '& thead > tr:nth-child(odd)': {
+      '& td': {
+        backgroundColor: '#444',
+        color: '#fff',
+        textTransform: 'uppercase',
+      },
+      '& td:nth-child(2)': {
+        backgroundColor: '#330',
+        color: '#ff0',
+      },
     },
   },
 })
