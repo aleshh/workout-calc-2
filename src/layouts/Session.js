@@ -1,51 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createUseStyles } from 'react-jss'
+// import { createUseStyles } from 'react-jss'
 import ContentWrapper from '../layouts/ContentWrapper'
 import Header from '../layouts/Header'
 import NumberPicker from '../components/NumberPicker'
+import Table from '../components/Table'
 import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
-const useStyles = createUseStyles({
-  table: {
-    display: 'inline-block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderCollapse: 'collapse',
-    '& td': {
-      padding: '0 20px',
-      verticalAlign: 'middle',
-    },
-    '& td:nth-child(2)': {
-      fontFamily: "'Montserrat', sans-serif",
-      fontSize: '1.6em',
-      backgroundColor: '#ff0',
-    },
-    '& tr': {
-      backgroundColor: '#ddd',
-    },
-    '& tr:nth-child(odd)': {
-      backgroundColor: '#fff',
-      padding: '0',
-    },
-    '& tr:nth-child(even) > td:nth-child(2)': {
-      backgroundColor: '#dd0',
-    },
-    '& thead > tr > td': {
-      backgroundColor: '#444',
-      color: '#fff',
-      textTransform: 'uppercase',
-    },
-    '& thead > tr > td:nth-child(2)': {
-      backgroundColor: '#330',
-      color: '#ff0',
-    },
-  },
-})
+// const useStyles = createUseStyles({})
 
 const Session = ({ session, exercise, dispatch }) => {
-  const classes = useStyles()
+  // const classes = useStyles()
   const { id, name, weight, nextWeight, previousWeight } = session.exercises[
     session.currentExerciseIndex
   ]
@@ -124,7 +90,7 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderInitialWeightSelection = () => (
     <>
-      <h2>Enter Weight</h2>
+      <h2>Enter weight:</h2>
       <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
       {previousWeight && <p>Last Weight: {previousWeight}</p>}
       <ForwardBackControl
@@ -136,24 +102,14 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderWorkoutTable = () => (
     <>
-      <table className={classes.table}>
-        <thead>
-          <tr>
-            <td>sets</td>
-            <td>weight</td>
-            <td>reps</td>
-          </tr>
-        </thead>
-        <tbody>
-          {exercise.sets.map((row, i) => (
-            <tr key={i}>
-              <td>{row.sets}</td>
-              <td>{calculateWeight(weight, row.multiplier)}</td>
-              <td>{row.reps}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table
+        header={['Sets', 'Weight', 'Reps']}
+        data={exercise.sets.map((rep) => [
+          [rep.sets],
+          [calculateWeight(weight, rep.multiplier)],
+          [rep.reps],
+        ])}
+      />
       <ForwardBackControl
         onBack={setPositionToWeight}
         onForward={setPositionToNextWeight}
@@ -163,9 +119,9 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderNextWeightSelection = () => (
     <>
-      <h2>Next Weight</h2>
+      <h2>Weight for next time:</h2>
       <NumberPicker value={nextWeight || weight} onChange={storeNextWeight} />
-      <p>Just Completed: {weight}</p>
+      <p>You just did {weight} lbs.</p>
       <ForwardBackControl
         onBack={setPositiontoWorkout}
         onForward={finishExercise}
