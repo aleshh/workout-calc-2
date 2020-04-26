@@ -18,7 +18,6 @@ const createSession = (program, exercises, dispatch) => {
   const session = {
     exercises: program.exercises.map((exerciseId) => {
       const exercise = exercises.find((exercise) => exercise.id === exerciseId)
-      // exercise.previousWeight = 45
       exercise.weight = 45
       return exercise
     }),
@@ -39,6 +38,7 @@ const Home = ({ session, programs, exercises, dispatch }) => {
       <ContentWrapper>
         {programs.map((program) => (
           <Button
+            key={program.id}
             label={programName(program, exercises)}
             onClick={() => {
               createSession(program, exercises, dispatch)

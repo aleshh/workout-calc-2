@@ -32,12 +32,12 @@ const useStyles = createUseStyles({
     '& tr:nth-child(even) > td:nth-child(2)': {
       backgroundColor: '#dd0',
     },
-    '& tr:first-child': {
+    '& thead > tr > td': {
       backgroundColor: '#444',
       color: '#fff',
       textTransform: 'uppercase',
     },
-    '& tr:first-child > td:nth-child(2)': {
+    '& thead > tr > td:nth-child(2)': {
       backgroundColor: '#330',
       color: '#ff0',
     },
@@ -116,7 +116,7 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const setPositionToWeight = () => setPosition(positions.SET_WORKOUT_WEIGHT)
   const setPositiontoWorkout = () => {
-    if (!exercise.weight) return
+    if (!weight) return
 
     setPosition(positions.SHOW_SETS)
   }
@@ -136,21 +136,23 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderWorkoutTable = () => (
     <>
-      <h2>Workout Table</h2>
-      <p>Work weight, {weight}</p>
       <table className={classes.table}>
-        <tr>
-          <td>sets</td>
-          <td>weight</td>
-          <td>reps</td>
-        </tr>
-        {exercise.sets.map((row, i) => (
-          <tr key={i}>
-            <td>{row.sets}</td>
-            <td>{calculateWeight(weight, row.multiplier)}</td>
-            <td>{row.reps}</td>
+        <thead>
+          <tr>
+            <td>sets</td>
+            <td>weight</td>
+            <td>reps</td>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {exercise.sets.map((row, i) => (
+            <tr key={i}>
+              <td>{row.sets}</td>
+              <td>{calculateWeight(weight, row.multiplier)}</td>
+              <td>{row.reps}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <ForwardBackControl
         onBack={setPositionToWeight}

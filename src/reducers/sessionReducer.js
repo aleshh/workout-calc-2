@@ -1,34 +1,40 @@
 import { C, positions } from './constants'
 
-const initialState = {
-  currentExerciseIndex: 0,
-  position: positions.SET_WORKOUT_WEIGHT,
-  exercises: [
-    {
-      id: 234,
-      name: 'Squat',
-      weight: undefined,
-      // previousWeight: 100,
-      nextWeight: undefined,
-    },
-    {
-      id: 54324,
-      name: 'Standing Press',
-      weight: undefined,
-      previousWeight: 100,
-      nextWeight: undefined,
-    },
-    {
-      id: 23423,
-      name: 'Deadlift',
-      weight: undefined,
-      previousWeight: 100,
-      nextWeight: undefined,
-    },
-  ],
-}
+const dev = true
 
-// const initialState = null
+let initialState
+
+if (dev) {
+  initialState = {
+    currentExerciseIndex: 0,
+    position: positions.SHOW_SETS,
+    exercises: [
+      {
+        id: 234,
+        name: 'Squat',
+        weight: 100,
+        previousWeight: 100,
+        nextWeight: undefined,
+      },
+      {
+        id: 54324,
+        name: 'Standing Press',
+        weight: undefined,
+        previousWeight: 100,
+        nextWeight: undefined,
+      },
+      {
+        id: 23423,
+        name: 'Deadlift',
+        weight: undefined,
+        previousWeight: 100,
+        nextWeight: undefined,
+      },
+    ],
+  }
+} else {
+  initialState = null
+}
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
