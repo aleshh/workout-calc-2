@@ -28,10 +28,22 @@ const NumberPicker = ({ value, increment, onChange }) => {
   }
 
   const inc = (e) => {
+    if (!value || value < 45) {
+      onChange(45)
+      return
+    }
+
     onChange(parseInt(value) + increment)
   }
 
   const dec = (e) => {
+    if (!value) return
+
+    if (value <= 45) {
+      onChange(45)
+      return
+    }
+
     onChange(value - increment)
   }
 
@@ -44,7 +56,7 @@ const NumberPicker = ({ value, increment, onChange }) => {
         <form>
           <input
             className={classes.input}
-            value={value}
+            value={value || ''}
             onChange={handleChange}
           />
           &nbsp;lbs.
@@ -64,7 +76,7 @@ NumberPicker.propTypes = {
 }
 
 NumberPicker.defaultProps = {
-  value: 45,
+  value: undefined,
   increment: 5,
 }
 

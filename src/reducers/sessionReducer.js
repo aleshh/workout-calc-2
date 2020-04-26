@@ -8,7 +8,7 @@ const initialState = {
       id: 234,
       name: 'Squat',
       weight: undefined,
-      previousWeight: 100,
+      // previousWeight: 100,
       nextWeight: undefined,
     },
     {

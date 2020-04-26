@@ -115,7 +115,11 @@ const Session = ({ session, exercise, dispatch }) => {
   }
 
   const setPositionToWeight = () => setPosition(positions.SET_WORKOUT_WEIGHT)
-  const setPositiontoWorkout = () => setPosition(positions.SHOW_SETS)
+  const setPositiontoWorkout = () => {
+    if (!exercise.weight) return
+
+    setPosition(positions.SHOW_SETS)
+  }
   const setPositionToNextWeight = () => setPosition(positions.SET_NEXT_WEIGHT)
 
   const renderInitialWeightSelection = () => (
