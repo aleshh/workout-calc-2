@@ -6,29 +6,30 @@ let initialState
 
 if (dev) {
   initialState = {
-    currentExerciseIndex: 0,
+    currentExerciseIndex: 2,
     position: positions.SHOW_SETS,
+    complete: true,
     exercises: [
       {
         id: 234,
         name: 'Squat',
         weight: 100,
         previousWeight: 100,
-        nextWeight: undefined,
+        nextWeight: 200,
       },
       {
         id: 54324,
         name: 'Standing Press',
-        weight: undefined,
+        weight: 100,
         previousWeight: 100,
-        nextWeight: undefined,
+        nextWeight: 200,
       },
       {
         id: 23423,
         name: 'Deadlift',
-        weight: undefined,
+        weight: 100,
         previousWeight: 100,
-        nextWeight: undefined,
+        nextWeight: 200,
       },
     ],
   }
@@ -83,6 +84,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         complete: true,
+      }
+    case C.UNDO_WORKOUT_COMPLETE:
+      return {
+        ...state,
+        complete: false,
       }
     default:
       return state

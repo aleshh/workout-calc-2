@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { createUseStyles } from 'react-jss'
 import ContentWrapper from '../layouts/ContentWrapper'
 import Header from '../layouts/Header'
 import NumberPicker from '../components/NumberPicker'
@@ -8,10 +7,7 @@ import Table from '../components/Table'
 import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
-// const useStyles = createUseStyles({})
-
 const Session = ({ session, exercise, dispatch }) => {
-  // const classes = useStyles()
   const { id, name, weight, nextWeight, previousWeight } = session.exercises[
     session.currentExerciseIndex
   ]

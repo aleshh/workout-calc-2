@@ -1,6 +1,5 @@
 import React from 'react'
 import { array } from 'prop-types'
-// import clsx from 'clsx'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
