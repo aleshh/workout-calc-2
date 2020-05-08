@@ -90,6 +90,8 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         complete: false,
       }
+    case C.STORE_WORKOUT:
+      return null
     default:
       return state
   }
