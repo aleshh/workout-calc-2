@@ -14,10 +14,28 @@ const programName = (program, exercises) => {
     .join(', ')
 }
 
-const createSession = (program, exercises, dispatch) => {
+const createSession = (program, exercises, history, dispatch) => {
   const session = {
     exercises: program.exercises.map((exerciseId) => {
       const exercise = exercises.find((exercise) => exercise.id === exerciseId)
+      // console.log(exercise)
+      const lastSession = history.find((session) =>
+        session.exercises.find(
+          (pastExercise) => pastExercise.id === exercise.id
+        )
+      )
+      if (lastSession) {
+        const lastDate = lastSession.date
+        const { weight, nextWeight } = lastSession.exercises.find(
+          (lastExercise) => lastExercise.id === exerciseId
+        )
+        if (lastDate) {
+          console.log('last!')
+          console.log(lastDate)
+          console.log(weight)
+          console.log(nextWeight)
+        }
+      }
       exercise.weight = 45
       return exercise
     }),
@@ -31,7 +49,7 @@ const createSession = (program, exercises, dispatch) => {
   })
 }
 
-const Home = ({ session, programs, exercises, dispatch }) => {
+const Home = ({ session, programs, exercises, history, dispatch }) => {
   return (
     <>
       <Header title="WorkoutCalc" />
@@ -41,7 +59,7 @@ const Home = ({ session, programs, exercises, dispatch }) => {
             key={program.id}
             label={programName(program, exercises)}
             onClick={() => {
-              createSession(program, exercises, dispatch)
+              createSession(program, exercises, history, dispatch)
             }}
             wide
           />
@@ -55,6 +73,7 @@ const mapStateToProps = (state) => ({
   session: state.session,
   programs: state.programs,
   exercises: state.exercises,
+  history: state.history,
 })
 
 export default connect(mapStateToProps)(Home)
