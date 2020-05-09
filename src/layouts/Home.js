@@ -64,16 +64,18 @@ const Home = ({ session, programs, exercises, history, dispatch }) => {
     <>
       <Header title="WorkoutCalc" />
       <ContentWrapper>
-        {programs.map((program) => (
-          <Button
-            key={program.id}
-            label={programName(program, exercises)}
-            onClick={() => {
-              createSession(program, exercises, history, dispatch)
-            }}
-            wide
-          />
-        ))}
+        <div>
+          {programs.map((program) => (
+            <Button
+              key={program.id}
+              label={programName(program, exercises)}
+              onClick={() => {
+                createSession(program, exercises, history, dispatch)
+              }}
+              wide
+            />
+          ))}
+        </div>
       </ContentWrapper>
     </>
   )

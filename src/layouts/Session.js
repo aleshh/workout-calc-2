@@ -92,13 +92,15 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderInitialWeightSelection = () => (
     <>
-      <h2>Enter weight:</h2>
-      <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
-      {previousWeight && (
-        <p>
-          You did {previousWeight}lbs. {moment(previousDate).fromNow()}
-        </p>
-      )}
+      <div>
+        <h2>Enter weight:</h2>
+        <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
+        {previousWeight && (
+          <p>
+            You did {previousWeight} lbs. {moment(previousDate).fromNow()}.
+          </p>
+        )}
+      </div>
       <ForwardBackControl
         onBack={backFromExercise}
         onForward={setPositiontoWorkout}
@@ -125,9 +127,11 @@ const Session = ({ session, exercise, dispatch }) => {
 
   const renderNextWeightSelection = () => (
     <>
-      <h2>Weight for next time:</h2>
-      <NumberPicker value={nextWeight || weight} onChange={storeNextWeight} />
-      <p>You just did {weight} lbs.</p>
+      <div>
+        <h2>Weight for next time:</h2>
+        <NumberPicker value={nextWeight || weight} onChange={storeNextWeight} />
+        <p>You just did {weight} lbs.</p>
+      </div>
       <ForwardBackControl
         onBack={setPositiontoWorkout}
         onForward={finishExercise}
