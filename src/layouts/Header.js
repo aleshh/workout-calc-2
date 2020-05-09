@@ -16,7 +16,6 @@ const useStyles = createUseStyles({
     textAlign: 'center',
     padding: '0 20px',
     '& h1': {
-      fontFamily: 'Montserrat, sans-serif',
       fontSize: '1.7em',
       textAlign: 'center',
       padding: 10,

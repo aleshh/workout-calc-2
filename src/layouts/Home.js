@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import Button from '../components/Button'
 import ContentWrapper from '../layouts/ContentWrapper'
 import Header from '../layouts/Header'
@@ -60,11 +61,20 @@ const createSession = (program, exercises, history, dispatch) => {
 }
 
 const Home = ({ session, programs, exercises, history, dispatch }) => {
+  const lastSession = history[0]
+  const lastSessionTime = lastSession
+    ? moment(history[0].date).fromNow()
+    : undefined
+  const lastSessionExercises = lastSession
+    ? lastSession.exercises.map((exercise) => exercise.name).join(' · ')
+    : undefined
+
   return (
     <>
       <Header title="WorkoutCalc" />
       <ContentWrapper>
         <div>
+          <h2>Select workout:</h2>
           {programs.map((program) => (
             <Button
               key={program.id}
@@ -75,6 +85,15 @@ const Home = ({ session, programs, exercises, history, dispatch }) => {
               wide
             />
           ))}
+          {lastSessionTime && (
+            <p>
+              Last workout:
+              <br />
+              <b>{lastSessionExercises}</b>
+              <br />
+              {lastSessionTime}
+            </p>
+          )}
         </div>
       </ContentWrapper>
     </>
