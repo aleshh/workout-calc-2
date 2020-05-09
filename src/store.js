@@ -7,16 +7,15 @@ const initialState = {}
 
 const store = createStore(
   rootReducer,
-  // localStorage[localStorageName]
-  //   ? JSON.parse(localStorage[localStorageName])
-  //   : initialState
-  initialState
+  localStorage[localStorageName]
+    ? JSON.parse(localStorage[localStorageName])
+    : initialState
 )
 
 store.subscribe(() => {
   localStorage[localStorageName] = JSON.stringify(store.getState())
-  console.log('Store updated')
-  console.log(store.getState())
+  // console.log('Store updated')
+  // console.log(store.getState())
 })
 
 export default store
