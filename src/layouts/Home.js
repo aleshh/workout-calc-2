@@ -18,30 +18,36 @@ const createSession = (program, exercises, history, dispatch) => {
   const session = {
     exercises: program.exercises.map((exerciseId) => {
       const exercise = exercises.find((exercise) => exercise.id === exerciseId)
-      // console.log(exercise)
       const lastSession = history.find((session) =>
         session.exercises.find(
           (pastExercise) => pastExercise.id === exercise.id
         )
       )
-      if (lastSession) {
-        const lastDate = lastSession.date
-        const { weight, nextWeight } = lastSession.exercises.find(
-          (lastExercise) => lastExercise.id === exerciseId
-        )
-        if (lastDate) {
-          console.log('last!')
-          console.log(lastDate)
-          console.log(weight)
-          console.log(nextWeight)
-        }
+      const lastDate = lastSession ? lastSession.date : undefined
+      const lastExercise = lastSession
+        ? lastSession.exercises.find(
+            (lastExercise) => lastExercise.id === exerciseId
+          )
+        : undefined
+
+      if (
+        lastSession &
+        (!lastDate || !lastExercise.weight || !lastExercise.nextWeight)
+      ) {
+        alert('There was a problem restoring your workout history.')
       }
-      exercise.weight = 45
+
+      exercise.weight = lastExercise ? lastExercise.nextWeight : 45
+      exercise.lastWeight = lastExercise ? lastExercise.weight : undefined
+      exercise.lastDate = lastDate
+
       return exercise
     }),
     currentExerciseIndex: 0,
     position: positions.SET_WORKOUT_WEIGHT,
   }
+
+  console.log(session)
 
   dispatch({
     type: C.CREATE_NEW_SESSION,
