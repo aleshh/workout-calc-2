@@ -88,7 +88,7 @@ const Session = ({ session, exercise, dispatch }) => {
     <>
       <h2>Enter weight:</h2>
       <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
-      {previousWeight && <p>Last Weight: {previousWeight}</p>}
+      {previousWeight && <p>Last Weight: {previousWeight}lbs.</p>}
       <ForwardBackControl
         onBack={backFromExercise}
         onForward={setPositiontoWorkout}
