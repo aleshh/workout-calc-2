@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "clsx": "^1.1.0",
     "jss": "^10.1.1",
+    "moment": "^2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-jss": "^10.1.1",

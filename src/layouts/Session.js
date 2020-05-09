@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import ContentWrapper from '../layouts/ContentWrapper'
 import Header from '../layouts/Header'
 import NumberPicker from '../components/NumberPicker'
@@ -8,9 +9,14 @@ import ForwardBackControl from '../components/ForwardBackControl'
 import { C, positions } from '../reducers/constants'
 
 const Session = ({ session, exercise, dispatch }) => {
-  const { id, name, weight, nextWeight, previousWeight } = session.exercises[
-    session.currentExerciseIndex
-  ]
+  const {
+    id,
+    name,
+    weight,
+    nextWeight,
+    previousWeight,
+    previousDate,
+  } = session.exercises[session.currentExerciseIndex]
   const position = session.position || positions.SET_WORKOUT_WEIGHT
 
   const isFirstExercise = session.currentExerciseIndex === 0
@@ -88,7 +94,11 @@ const Session = ({ session, exercise, dispatch }) => {
     <>
       <h2>Enter weight:</h2>
       <NumberPicker value={weight || previousWeight} onChange={storeWeight} />
-      {previousWeight && <p>Last Weight: {previousWeight}lbs.</p>}
+      {previousWeight && (
+        <p>
+          You did {previousWeight}lbs. {moment(previousDate).fromNow()}
+        </p>
+      )}
       <ForwardBackControl
         onBack={backFromExercise}
         onForward={setPositiontoWorkout}

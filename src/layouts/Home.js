@@ -23,7 +23,7 @@ const createSession = (program, exercises, history, dispatch) => {
           (pastExercise) => pastExercise.id === exercise.id
         )
       )
-      const lastDate = lastSession ? lastSession.date : undefined
+      const previousDate = lastSession ? lastSession.date : undefined
       const previousExercise = lastSession
         ? lastSession.exercises.find(
             (previousExercise) => previousExercise.id === exerciseId
@@ -32,7 +32,9 @@ const createSession = (program, exercises, history, dispatch) => {
 
       if (
         lastSession &
-        (!lastDate || !previousExercise.weight || !previousExercise.nextWeight)
+        (!previousDate ||
+          !previousExercise.weight ||
+          !previousExercise.nextWeight)
       ) {
         alert('There was a problem restoring your workout history.')
       }
@@ -41,7 +43,7 @@ const createSession = (program, exercises, history, dispatch) => {
       exercise.previousWeight = previousExercise
         ? previousExercise.weight
         : undefined
-      exercise.lastDate = lastDate
+      exercise.previousDate = previousDate
 
       return exercise
     }),
