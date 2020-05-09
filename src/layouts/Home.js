@@ -60,6 +60,15 @@ const createSession = (program, exercises, history, dispatch) => {
   })
 }
 
+const handleDeleteHistory = (dispatch) => {
+  const deleteConfirmed = window.confirm(
+    'Are you sure you want to delete all workout history?'
+  )
+  if (deleteConfirmed) {
+    dispatch({ type: C.CLEAR_HISTORY })
+  }
+}
+
 const Home = ({ session, programs, exercises, history, dispatch }) => {
   const lastSession = history[0]
   const lastSessionTime = lastSession
@@ -95,6 +104,13 @@ const Home = ({ session, programs, exercises, history, dispatch }) => {
             </p>
           )}
         </div>
+        <Button
+          label="Delete history"
+          onClick={() => handleDeleteHistory(dispatch)}
+          small
+          secondary
+          style={{ width: 100, position: 'absolute', right: 0, bottom: 0 }}
+        />
       </ContentWrapper>
     </>
   )

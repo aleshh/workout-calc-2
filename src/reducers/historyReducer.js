@@ -17,6 +17,8 @@ export default (state = initialState, { type, payload }) => {
         },
         ...state,
       ]
+    case C.CLEAR_HISTORY:
+      return []
     default:
       return state
   }

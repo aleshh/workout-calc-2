@@ -41,7 +41,15 @@ const useStyles = createUseStyles({
   },
 })
 
-const Button = ({ onClick, label, wide, secondary, navigation }) => {
+const Button = ({
+  onClick,
+  label,
+  wide,
+  secondary,
+  navigation,
+  small,
+  ...props
+}) => {
   const classes = useStyles()
 
   return (
@@ -51,8 +59,10 @@ const Button = ({ onClick, label, wide, secondary, navigation }) => {
         [classes.wide]: wide,
         [classes.secondary]: secondary,
         [classes.navigation]: navigation,
+        [classes.small]: small,
       })}
       data-testid="button"
+      {...props}
     >
       {label}
     </button>
@@ -65,12 +75,14 @@ Button.propTypes = {
   wide: bool,
   secondary: bool,
   navigation: bool,
+  small: bool,
 }
 
 Button.defaultProps = {
   wide: false,
   secondary: false,
   navigation: false,
+  small: false,
 }
 
 export default Button
