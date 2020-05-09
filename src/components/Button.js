@@ -36,7 +36,6 @@ const useStyles = createUseStyles({
   small: {
     fontSize: '0.6em',
     padding: '5px 10px',
-    marginLeft: 30,
     borderRadius: 5,
   },
 })

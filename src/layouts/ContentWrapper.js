@@ -6,14 +6,13 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: 'calc(100vh - 118px)',
+    height: 'calc(100vh - 68px)',
     position: 'relative',
     maxWidth: 600,
     marginLeft: 'auto',
     marginRight: 'auto',
     textAlign: 'center',
-    padding: '0 20px',
-    marginTop: 50,
+    padding: '50px 20px',
   },
 })
 

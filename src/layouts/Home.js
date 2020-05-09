@@ -4,6 +4,7 @@ import moment from 'moment'
 import Button from '../components/Button'
 import ContentWrapper from '../layouts/ContentWrapper'
 import Header from '../layouts/Header'
+import History from './History'
 import { C, positions } from '../reducers/constants'
 
 const programName = (program, exercises) => {
@@ -60,16 +61,8 @@ const createSession = (program, exercises, history, dispatch) => {
   })
 }
 
-const handleDeleteHistory = (dispatch) => {
-  const deleteConfirmed = window.confirm(
-    'Are you sure you want to delete all workout history?'
-  )
-  if (deleteConfirmed) {
-    dispatch({ type: C.CLEAR_HISTORY })
-  }
-}
-
 const Home = ({ session, programs, exercises, history, dispatch }) => {
+  const [doShowHistory, setDoShowHistory] = React.useState(false)
   const lastSession = history[0]
   const lastSessionTime = lastSession
     ? moment(history[0].date).fromNow()
@@ -104,14 +97,22 @@ const Home = ({ session, programs, exercises, history, dispatch }) => {
             </p>
           )}
         </div>
-        <Button
-          label="Delete history"
-          onClick={() => handleDeleteHistory(dispatch)}
-          small
-          secondary
-          style={{ width: 100, position: 'absolute', right: 0, bottom: 0 }}
-        />
+        {history.length > 0 && (
+          <Button
+            label="Show history"
+            onClick={() => setDoShowHistory(true)}
+            small
+            secondary
+            style={{ width: 100, position: 'absolute', right: 0, bottom: 0 }}
+          />
+        )}
       </ContentWrapper>
+      <History
+        history={history}
+        show={doShowHistory}
+        onClose={() => setDoShowHistory(false)}
+        onDeleteHistory={() => dispatch({ type: C.CLEAR_HISTORY })}
+      />
     </>
   )
 }
