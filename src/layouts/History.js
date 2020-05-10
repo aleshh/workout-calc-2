@@ -61,7 +61,7 @@ const History = ({ show, history, onClose, onDeleteHistory }) => {
               {session.exercises.map((exercise) => (
                 <li>
                   <b>{exercise.name}</b>:
-                  {` ${exercise.weight} lbs. worked<br/>(${exercise.nextWeight} lbs. set for next time)`}
+                  {` ${exercise.weight} lbs. worked(${exercise.nextWeight} lbs. set for next time)`}
                 </li>
               ))}
             </ul>
